@@ -1,28 +1,15 @@
-import Profile from "./profile/Profile";
-import userData from "./userData.json";
-
-import friends from "./FriendList/friends.json";
-import FriendList from "./FriendList/FriendList";
-
-import transactions from './transactions/transactions.json';
-import TransactionHistory from './transactions/TransactionHistory'
-
+import { Routes, Route, NavLink } from "react-router-dom";
 import clsx from "clsx";
 
+// import css from "./App.module.css";
 
-  
-export default function App (){
-    return (
-      <>
-        <Profile
-          name={userData.username}
-          tag={userData.tag}
-          location={userData.location}
-          image={userData.avatar}
-          stats={userData.stats}
-        />
-        <FriendList friends={friends} />
-        <TransactionHistory items={transactions} />
-      </>
-    );
-  };
+
+
+export const App = () => {
+  return (
+    <div>
+      
+   
+    </div>
+  );
+};
