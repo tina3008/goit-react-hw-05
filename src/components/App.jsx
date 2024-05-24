@@ -9,6 +9,8 @@ import MovieDetailsPage from "../pages/MovieDetailsPage/MovieDetailsPage.jsx";
 import css from "./App.module.css";
 
 export default function App() {
+
+
   return (
     <div>    
       <Navigation />
