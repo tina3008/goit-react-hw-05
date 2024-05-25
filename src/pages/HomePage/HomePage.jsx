@@ -15,9 +15,8 @@ const [loading, setLoading] = useState(false);
     //  }
 
      async function fetchMovies() {
-const qqq = await getMovies();
-        // console.log(qqq);
-      //  console.log(total_results);
+const { results, total_results } = await getMovies();
+
      }
 
      fetchMovies();
