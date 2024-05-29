@@ -38,26 +38,28 @@ export default function MovieCast() {
 
   
   return (
-    <div>
+    <div className={css.blokActors}>
       <h3> About actors</h3>
       {error && <ErrorMessage />}
-      <ul>
-        {casts && ( casts.map(({ id, name, profile_path, character }) => (
-              <li key={id}>
-                <img
-                  src={
-                    profile_path
-                      ? `https://image.tmdb.org/t/p/w200${profile_path}`
-                      : `http://www.suryalaya.org/images/no_image.jpg`
-                  }
-                  alt={name}
-                  width="120"
-                />
+      <ul className={css.list}>
+        {casts &&
+          casts.map(({ id, name, profile_path, character }) => (
+            <li key={id} className={css.conteiner}>
+              <img
+                className={css.img}
+                src={
+                  profile_path
+                    ? `https://image.tmdb.org/t/p/w200${profile_path}`
+                    : `http://www.suryalaya.org/images/no_image.jpg`
+                }
+                alt={name}
+              />
+              <div>
                 <h3>{name}</h3>
                 <p> Character: {character}</p>
-              </li>
-            ))
-          )}
+              </div>
+            </li>
+          ))}
       </ul>
       {loading && <Loader />}
     </div>

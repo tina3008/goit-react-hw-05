@@ -1,3 +1,4 @@
+import css from './MovieDetailsPage.module.css'
 import { Suspense, useEffect, useRef, useState } from "react";
 import {
  
@@ -12,8 +13,8 @@ import { movieDetal } from "../../components/movie-api";
 import Loader from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
-import MovieCast from "../../components/MovieCast/MovieCast";
-import Review from "../../components/MovieReviews/MovieReviews";
+// import MovieCast from "../../components/MovieCast/MovieCast";
+// import Review from "../../components/MovieReviews/MovieReviews";
 import MovieCard from "../../components/MoiveCard/MoiveCard";
 
 export default function MovieDetailsPage() {
@@ -43,7 +44,7 @@ export default function MovieDetailsPage() {
   }, [movieId]);
 
   return (
-    <div>
+    <div className={css.page}>
       {error && <ErrorMessage />}
       {details && <MovieCard details={details} />}
 

@@ -1,4 +1,4 @@
-// import css from "./MovieCast.module.css";
+import css from "./MovieReviews.module.css";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
@@ -19,7 +19,7 @@ export default function Review() {
         setLoading(true);
         setError(false);
         const revievs = await movieReviews(movieId);
-console.log(revievs);
+
         setReview(revievs);
       } catch (error) {
         setError(true);
@@ -31,12 +31,12 @@ console.log(revievs);
   getReview();
 }, [movieId]);
   return (
-    <div>
+    <div className={css.blokRewiwe}>
       <h2>Review</h2>
       {error && <ErrorMessage />}
       {review &&
         review.map(({ id, author, content }) => (
-          <li key={id}>
+          <li key={id} className={css.conteiner}>
             <h3>{author}</h3>
             <p> {content}</p>
           </li>

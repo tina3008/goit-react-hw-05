@@ -106,7 +106,7 @@ export const movieReviews = async (id) => {
         },
       }
     );
-console.log(response.data.results);
+
     return response.data.results;
   } catch (error) {
     console.error("Error fetching articles:", error);

@@ -1,5 +1,5 @@
 
-// import css from "./ImageCard.module.css";
+import css from "./MoiveCard.module.css";
 import clsx from "clsx";
 
 export default function MovieCard({details:{
@@ -13,7 +13,7 @@ export default function MovieCard({details:{
   
   };
   return (
-    <div>
+    <div className={css.card}>
       <img
         src={
           poster_path
@@ -22,14 +22,20 @@ export default function MovieCard({details:{
         }
         loading="lazy"
         alt="Movie poster"
-    
       />
-      <ul>
-        <li>{title}</li>
-        <li>{overview}</li>
-
-        <li>{release_date}</li>
-      </ul>
+      <div>
+        <h4>{title}</h4>
+        <ul>
+          <li className={css.list}>
+            {" "}
+            <span className={css.span}>release date:</span> {release_date}
+          </li>
+          <li className={css.list}>
+            <span className={css.span}>rating:</span> {vote_average}
+          </li>
+        </ul>
+        <p>{overview}</p>
+      </div>
     </div>
   );
 }
