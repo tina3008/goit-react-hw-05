@@ -42,7 +42,7 @@ export default function HomePage() {
     <div>
       <h2>Trending movies </h2>
       {error && <ErrorMessage />}
-      {Movies.length && <MovieGallery items={Movies} />}
+      {Movies.length > 0 && <MovieGallery items={Movies} />}
 
       {totalPage && <LoadMoreBtn onClick={hendleLoadMore} />}
 
