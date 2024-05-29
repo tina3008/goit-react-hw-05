@@ -1,32 +1,49 @@
 // import css from "./MovieCast.module.css";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
-import { movieReviews } from '../movie-api'
+import { useLocation, useParams } from "react-router-dom";
+import { movieReviews } from "../movie-api";
 import Loader from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
-// export default function Review({ author, rating, content, url }) {
-//   const handleClick = () => {
-//     onClick(small);
-//   };
-//   return (
-//     <div>
-//       <img
-//         className={css.img}
-//         src={"https://image.tmdb.org/t/p/w500/${poster_path}"}
-//         alt={title}
-//         onClick={handleClick}
-//       />
-//       <ul>
-//         <li>{author}</li>
-//         <li>{rating}</li>
-//         <li>{content}</li>
-//         <li>{url}</li>
-//       </ul>
-//     </div>
-//   );
-// }
-
 export default function Review() {
-  return <div>return</div>;
+  const [review, setReview] = useState(null);
+    const [error, setError] = useState(false);
+    const { movieId } = useParams();
+    const location = useLocation();
+  const [loading, setLoading] = useState(false);
+  
+  useEffect(() => {
+    async function getReview() {
+      try {
+        setLoading(true);
+        setError(false);
+        const revievs = await movieReviews(movieId);
+console.log(revievs);
+        setReview(revievs);
+      } catch (error) {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    }
+    
+  getReview();
+}, [movieId]);
+  return (
+    <div>
+      <h2>Review</h2>
+      {error && <ErrorMessage />}
+      {review &&
+        review.map(({ id, author, content }) => (
+          <li key={id}>
+            <h3>{author}</h3>
+            <p> {content}</p>
+          </li>
+        ))}
+      {loading && <Loader />}
+    </div>
+  );
 }
+
+

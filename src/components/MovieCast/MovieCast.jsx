@@ -1,33 +1,65 @@
 import css from "./MovieCast.module.css";
 import clsx from "clsx";
+import { Suspense, useEffect, useRef, useState } from "react";
+import { NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 
-// export default function MovieCast({
-//   title,
-//   overview,
-//   poster_path,
-//   popularity,
-//   release_date,
-// }) {
-//   const handleClick = () => {
-//     onClick(small);
-//   };
-//   return (
-//     <div>
-//       <img
-//         className={css.img}
-//         src={"https://image.tmdb.org/t/p/w500/${poster_path}"}
-//         alt={title}
-//         onClick={handleClick}
-//       />
-//       <ul>
-//         <li>{title}</li>
-//         <li>{overview}</li>
-//         <li>{popularity}</li>
-//         <li>{release_date}</li>
-//       </ul>
-//     </div>
-//   );
-// }
+import { movieActors } from "../../components/movie-api";
+import Loader from "../../components/Loader/Loader";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+
+
 export default function MovieCast() {
-  return <div>MovieCast</div>;
+  const [casts, setCasts] = useState(null);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { movieId } = useParams();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (movieId === "") {
+      return;
+  }
+    async function getCast() {
+      try {
+        setLoading(true);
+        setError(false);
+        const Actors = await movieActors(movieId);
+
+        setCasts(Actors);
+      } catch (error) {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    getCast();
+  }, [movieId]);
+
+  
+  return (
+    <div>
+      <h3> About actors</h3>
+      {error && <ErrorMessage />}
+      <ul>
+        {casts && ( casts.map(({ id, name, profile_path, character }) => (
+              <li key={id}>
+                <img
+                  src={
+                    profile_path
+                      ? `https://image.tmdb.org/t/p/w200${profile_path}`
+                      : `http://www.suryalaya.org/images/no_image.jpg`
+                  }
+                  alt={name}
+                  width="120"
+                />
+                <h3>{name}</h3>
+                <p> Character: {character}</p>
+              </li>
+            ))
+          )}
+      </ul>
+      {loading && <Loader />}
+    </div>
+  );
 }

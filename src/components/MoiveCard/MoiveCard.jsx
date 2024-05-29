@@ -15,15 +15,19 @@ export default function MovieCard({details:{
   return (
     <div>
       <img
-     
-        src={"https://image.tmdb.org/t/p/w500/${poster_path}"}
-        alt={title}
-        onClick={handleClick}
+        src={
+          poster_path
+            ? `https://image.tmdb.org/t/p/w300${poster_path}`
+            : `http://www.suryalaya.org/images/no_image.jpg`
+        }
+        loading="lazy"
+        alt="Movie poster"
+    
       />
       <ul>
         <li>{title}</li>
         <li>{overview}</li>
-      
+
         <li>{release_date}</li>
       </ul>
     </div>

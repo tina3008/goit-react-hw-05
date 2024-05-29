@@ -42,8 +42,8 @@ export default function MoviesPage({ onSearch }) {
     fetchMovies();
   }, [searchQuery, page]);
 
-  const handleSearch = async (searchImg) => {
-    setSearchQuery(searchImg);
+  const handleSearch = async (searchMovie) => {
+    setSearchQuery(searchMovie);
     setPage(1);
     setMovies([]);
   };

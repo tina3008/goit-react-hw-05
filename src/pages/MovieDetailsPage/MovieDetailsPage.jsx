@@ -1,19 +1,20 @@
 import { Suspense, useEffect, useRef, useState } from "react";
 import {
-  Link,
+ 
   NavLink,
   Outlet,
   useLocation,
   useParams,
 } from "react-router-dom";
+import clsx from "clsx";
 
 import { movieDetal } from "../../components/movie-api";
 import Loader from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
-import MovieCast from '../../components/MovieCast/MovieCast';
-import Review from '../../components/MovieReviews/MovieReviews';
-import MovieCard from '../../components/MoiveCard/MoiveCard';
+import MovieCast from "../../components/MovieCast/MovieCast";
+import Review from "../../components/MovieReviews/MovieReviews";
+import MovieCard from "../../components/MoiveCard/MoiveCard";
 
 export default function MovieDetailsPage() {
   const [details, setDetails] = useState(null);
@@ -23,17 +24,14 @@ export default function MovieDetailsPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (movieId === "") {
-      return;
-    }
+   
     async function getDetails() {
       try {
         setLoading(true);
         setError(false);
         const fullDetalls = await movieDetal(movieId);
-       
+
         setDetails(fullDetalls);
-       
       } catch (error) {
         setError(true);
       } finally {
@@ -44,22 +42,21 @@ export default function MovieDetailsPage() {
     getDetails();
   }, [movieId]);
 
-console.log(details);
-
-  const { poster_path, title, vote_average, release_date, overview } =
-    details;
- 
- 
   return (
     <div>
-      {/* {error && <ErrorMessage />} */}
-      cast&Review
-      {/* {details.length > 0 && <MovieCard items={details} />} */}
-      {/* <p>{title}</p> */}
-      {/* <img
-        src={`https://image.tmdb.org/t/p/w500${details.poster_path}`}
-        alt={details.title}
-      /> */}
+      {error && <ErrorMessage />}
+      {details && <MovieCard details={details} />}
+
+      <ul>
+        <li>
+          <NavLink to="actors">Actors info</NavLink>
+        </li>
+        <li>
+          <NavLink to="reviews">Movie reviews</NavLink>
+        </li>
+      </ul>
+      <Outlet />
+      {loading && <Loader />}
     </div>
   );
 }

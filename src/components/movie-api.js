@@ -72,10 +72,11 @@ export const movieDetal = async (id) => {
 };
 
 // movies actors ===================
-export const movieActors = async () => {
+export const movieActors = async (id) => {
+
   try {
     const response = await axios.get(
-      "https://api.themoviedb.org/3/movie/614933/credits",
+      `https://api.themoviedb.org/3/movie/${id}/credits`,
       {
         headers: {
           Authorization:
@@ -83,8 +84,8 @@ export const movieActors = async () => {
         },
       }
     );
-console.log(response.data);
-    return response.data;
+
+    return response.data.cast;
   } catch (error) {
     console.error("Error fetching articles:", error);
     throw error;
@@ -94,9 +95,10 @@ console.log(response.data);
 // Reviews===========
 
 export const movieReviews = async (id) => {
+
   try {
     const response = await axios.get(
-      "https://api.themoviedb.org/3/movie/${id}/reviews",
+      `https://api.themoviedb.org/3/movie/${id}/reviews`,
       {
         headers: {
           Authorization:
@@ -104,8 +106,8 @@ export const movieReviews = async (id) => {
         },
       }
     );
-    console.log(response.data);
-    return response.data;
+console.log(response.data.results);
+    return response.data.results;
   } catch (error) {
     console.error("Error fetching articles:", error);
     throw error;
