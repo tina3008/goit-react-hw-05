@@ -55,8 +55,8 @@ console.log(details);
       {/* {error && <ErrorMessage />} */}
       cast&Review
       {/* {details.length > 0 && <MovieCard items={details} />} */}
-      {/* <p>{details.title}</p>
-      <img
+      <p>{title}</p>
+      {/* <img
         src={`https://image.tmdb.org/t/p/w500${details.poster_path}`}
         alt={details.title}
       /> */}
