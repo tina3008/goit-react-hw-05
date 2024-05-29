@@ -1,30 +1,47 @@
 import { useEffect, useState } from "react";
 
-import {getMovies} from '../../components/movie-api'
+import { getMovies } from "../../components/movie-api";
+import Loader from "../../components/Loader/Loader";
+import LoadMoreBtn from "../../components/LoadMoreBtn/LoadMoreBtn";
+import MovieGallery from "../../components/MovieGallery/MovieGallery";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+import MovieDetailsPage from '../MovieDetailsPage/MovieDetailsPage';
 
 export default function HomePage() {
-const [movies, setMovies] = useState([]);
-const [error, setError] = useState(false);
-const [loading, setLoading] = useState(false);
+  const [Movies, setMovies] = useState([]);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
-   const [totalPage, setTotalPage] = useState(false);
+  const [totalPage, setTotalPage] = useState(false);
 
-   useEffect(() => {
-    //  if (searchQuery.trim() === "") {
-    //    return;
-    //  }
+  useEffect(() => {
+    async function fetchMovies() {
+      try {
+        setLoading(true);
+        setError(false);
+        const { results, total_pages } = await getMovies(page);
+        setMovies((prevState) => [...prevState, ...results]);
+        setTotalPage(total_pages);
+      } catch (error) {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-     async function fetchMovies() {
-const { results, total_results } = await getMovies();
+    fetchMovies();
+  }, [page]);
 
-     }
+const hendleLoadMore = async () => {
+  setPage(page + 1);
+};
+  return (
+    <div>
+      <h2>Trending movies </h2>
+      {Movies.length > 0 && <MovieGallery items={Movies} />}
+      {totalPage && <LoadMoreBtn onClick={hendleLoadMore} />}
 
-     fetchMovies();
-   }, []);
-      return (
-        <div>
-          <h2>Trending movies </h2>
-
-        </div>
-      );
+      {loading && <Loader />}
+    </div>
+  );
 }
