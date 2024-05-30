@@ -45,7 +45,7 @@ export default function HomePage() {
       {error && <ErrorMessage />}
       {Movies.length > 0 && <MovieGallery items={Movies} />}
 
-      {totalPage && <LoadMoreBtn onClick={hendleLoadMore} />}
+      {totalPage > page && <LoadMoreBtn onClick={hendleLoadMore} />}
 
       {loading && <Loader />}
     </div>

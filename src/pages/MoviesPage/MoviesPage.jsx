@@ -33,14 +33,14 @@ export default function MoviesPage({ onSearch }) {
         setTotalPage(total_pages);
         setMovies((prevState) => [...prevState, ...results]);
         
-        console.log(total_pages);
+       
       } catch (error) {
         setError(true);
       } finally {
         setLoading(false);
       }
     }
-console.log(totalPage);
+
     fetchMovies();
   }, [searchQuery, page]);
 
