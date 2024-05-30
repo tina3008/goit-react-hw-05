@@ -2,3 +2,9 @@
     margin: 10px;
 }
 
+.goto{
+    font-size: larger;
+    font-weight: 500;
+    text-decoration: underline;
+    padding: 10px;
+}

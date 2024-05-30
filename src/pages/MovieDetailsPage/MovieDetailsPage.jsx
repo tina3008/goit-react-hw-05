@@ -7,14 +7,9 @@ import {
   useLocation,
   useParams,
 } from "react-router-dom";
-import clsx from "clsx";
-
 import { movieDetal } from "../../components/movie-api";
 import Loader from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
-
-// import MovieCast from "../../components/MovieCast/MovieCast";
-// import Review from "../../components/MovieReviews/MovieReviews";
 import MovieCard from "../../components/MoiveCard/MoiveCard";
 
 export default function MovieDetailsPage() {
@@ -43,11 +38,13 @@ export default function MovieDetailsPage() {
     getDetails();
   }, [movieId]);
 
+  const goBack = useRef(location.state ?? '/movies')
+  
   return (
     <div className={css.page}>
+      <NavLink to={goBack.current} className={css.goto}> Go back </NavLink>
       {error && <ErrorMessage />}
       {details && <MovieCard details={details} />}
-
       <ul>
         <li>
           <NavLink to="actors">Actors info</NavLink>
@@ -56,7 +53,10 @@ export default function MovieDetailsPage() {
           <NavLink to="reviews">Movie reviews</NavLink>
         </li>
       </ul>
-      <Outlet />
+      <Suspense fallback={<Loader />}>
+        
+        <Outlet />
+      </Suspense>
       {loading && <Loader />}
     </div>
   );

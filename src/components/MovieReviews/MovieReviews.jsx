@@ -29,21 +29,23 @@ export default function Review() {
     }
     
   getReview();
-}, [movieId]);
+  }, [movieId]);
+  
+
   return (
     <div className={css.blokRewiwe}>
       <h2>Review</h2>
       {error && <ErrorMessage />}
       <ul>
-        {/* {review &&
+        {review &&
           review.map(({ id, author, content }) => (
             <li key={id} className={css.conteiner}>
               <h3>{author}</h3>
               <p> {content}</p>
             </li>
-          ))} */}
+          ))}
 
-        {review.length > 0 ? (
+        {/* {(review.length) > 0 ? (
           review.map(({ id, author, content }) => (
             <li key={id} className={css.conteiner}>
               <h3>{author}</h3>
@@ -54,7 +56,7 @@ export default function Review() {
           <li  className={css.conteiner}>
             review not found
           </li>
-        )}
+        )} */}
       </ul>
 
       {loading && <Loader />}

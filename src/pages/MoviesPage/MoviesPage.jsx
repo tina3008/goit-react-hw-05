@@ -32,13 +32,15 @@ export default function MoviesPage({ onSearch }) {
         const { results, total_pages } = await searchMovies(searchQuery, page);
         setTotalPage(total_pages);
         setMovies((prevState) => [...prevState, ...results]);
+        
+        console.log(total_pages);
       } catch (error) {
         setError(true);
       } finally {
         setLoading(false);
       }
     }
-
+console.log(totalPage);
     fetchMovies();
   }, [searchQuery, page]);
 
@@ -59,8 +61,8 @@ export default function MoviesPage({ onSearch }) {
       {error && <ErrorMessage />}
       {Movies.length > 0 && <MovieGallery items={Movies} />}
 
-      {totalPage && <LoadMoreBtn onClick={hendleLoadMore} />}
-
+      {totalPage > page && <LoadMoreBtn onClick={hendleLoadMore} />}
+   
       {loading && <Loader />}
     </div>
   );
