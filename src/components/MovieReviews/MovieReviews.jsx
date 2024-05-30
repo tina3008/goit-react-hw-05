@@ -34,13 +34,29 @@ export default function Review() {
     <div className={css.blokRewiwe}>
       <h2>Review</h2>
       {error && <ErrorMessage />}
-      {review &&
-        review.map(({ id, author, content }) => (
-          <li key={id} className={css.conteiner}>
-            <h3>{author}</h3>
-            <p> {content}</p>
+      <ul>
+        {/* {review &&
+          review.map(({ id, author, content }) => (
+            <li key={id} className={css.conteiner}>
+              <h3>{author}</h3>
+              <p> {content}</p>
+            </li>
+          ))} */}
+
+        {review.length > 0 ? (
+          review.map(({ id, author, content }) => (
+            <li key={id} className={css.conteiner}>
+              <h3>{author}</h3>
+              <p> {content}</p>
+            </li>
+          ))
+        ) : (
+          <li  className={css.conteiner}>
+            review not found
           </li>
-        ))}
+        )}
+      </ul>
+
       {loading && <Loader />}
     </div>
   );

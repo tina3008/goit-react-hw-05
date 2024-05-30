@@ -1,3 +1,5 @@
+
+
 import { useEffect, useState } from "react";
 
 import { getMovies } from "../../components/movie-api";
@@ -24,7 +26,6 @@ export default function HomePage() {
         const { results, total_pages } = await getMovies(page);
         setMovies((prevState) => [...prevState, ...results]);
         setTotalPage(total_pages);
-      
       } catch (error) {
         setError(true);
       } finally {

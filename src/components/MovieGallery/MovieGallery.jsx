@@ -12,9 +12,8 @@ export default function MovieGallery({ items }) {
     <ul className={css.movList}>
       {items.map(({ id, title }) => (
         <li key={id}>
-          <Link to={`${id}`} state={location}>
+          <Link to={`/movies/${id}`} state={location}>
             <p>{title}</p>
-           
           </Link>
         </li>
       ))}
