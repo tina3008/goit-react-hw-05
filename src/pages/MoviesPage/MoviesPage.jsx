@@ -12,7 +12,7 @@ import Loader from "../../components/Loader/Loader";
 import LoadMoreBtn from "../../components/LoadMoreBtn/LoadMoreBtn";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
-export default function MoviesPage({ onSearch }) {
+export default function MoviesPage() {
   const [Movies, setMovies] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
