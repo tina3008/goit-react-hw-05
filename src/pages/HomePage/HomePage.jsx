@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { getMovies } from "../../components/movie-api";
 
-import MovieGallery from "../../components/MovieGallery/MovieGallery";
+import MovieGallery from "../../components/MovieList/MovieList";
 import Loader from "../../components/Loader/Loader";
 import LoadMoreBtn from "../../components/LoadMoreBtn/LoadMoreBtn";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";

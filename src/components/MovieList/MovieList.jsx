@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 // import MovieDetailsPage from "../../pages/MovieDetailsPage/MovieDetailsPage";
 
-import css from "./MovieGallery.module.css";
+import css from "./MovieList.module.css";
 
 export default function MovieGallery({ items }) {
   const location = useLocation();

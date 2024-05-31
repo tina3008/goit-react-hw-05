@@ -4,7 +4,8 @@ import css from "./MoviesPage.module.css";
 import axios from "axios";
 import { searchMovies } from "../../components/movie-api";
 import { useEffect, useState } from "react";
-import MovieGallery from "../../components/MovieGallery/MovieGallery";
+import MovieGallery from "../../components/MovieList/MovieList";
+import { useSearchParams } from "react-router-dom";
 
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Loader from "../../components/Loader/Loader";
@@ -19,6 +20,9 @@ export default function MoviesPage({ onSearch }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [totalPage, setTotalPage] = useState(false);
   const [selectedMovieUrl, setSelectedMovieUrl] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+
+
 
   useEffect(() => {
     if (searchQuery.trim() === "") {
@@ -29,10 +33,11 @@ export default function MoviesPage({ onSearch }) {
       try {
         setLoading(true);
         setError(false);
+        //  setSearchParams({ query: searchMovie, page: 1 });
         const { results, total_pages } = await searchMovies(searchQuery, page);
         setTotalPage(total_pages);
         setMovies((prevState) => [...prevState, ...results]);
-        
+
        
       } catch (error) {
         setError(true);
@@ -47,22 +52,26 @@ export default function MoviesPage({ onSearch }) {
   const handleSearch = async (searchMovie) => {
     setSearchQuery(searchMovie);
     setPage(1);
-    setMovies([]);
+    // setMovies([]);
+    setSearchParams({ query: searchMovie, page: 1 });
   };
 
   const hendleLoadMore = async () => {
     setPage(page + 1);
   };
 
+
+
   return (
     <div>
       <SearchBar onSearch={handleSearch} />
+   
 
       {error && <ErrorMessage />}
       {Movies.length > 0 && <MovieGallery items={Movies} />}
 
       {totalPage > page && <LoadMoreBtn onClick={hendleLoadMore} />}
-   
+
       {loading && <Loader />}
     </div>
   );
