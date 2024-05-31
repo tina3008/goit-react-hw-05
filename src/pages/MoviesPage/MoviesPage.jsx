@@ -31,7 +31,7 @@ export default function MoviesPage() {
       try {
         setLoading(true);
         setError(false);
-
+        setMovies([]);
         const { results, total_pages } = await searchMovies(searchQuery, page);
         setTotalPage(total_pages);
         setMovies((prevState) => [...prevState, ...results]);
@@ -45,10 +45,10 @@ export default function MoviesPage() {
     fetchMovies();
   }, [searchQuery, page]);
 
-  const handleSearch = async (searchQuery, page) => {
-    searchParams.set(searchQuery, page);
+  const handleSearch = async (searchQuery) => {
+    searchParams.set("query",searchQuery);
 
-    setSearchParams({ query: searchQuery, page: 1 });
+    setSearchParams(searchParams);
   };
 
   const hendleLoadMore = async () => {
