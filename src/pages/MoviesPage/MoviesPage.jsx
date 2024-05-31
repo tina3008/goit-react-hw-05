@@ -17,12 +17,10 @@ export default function MoviesPage({ onSearch }) {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState("");
   const [totalPage, setTotalPage] = useState(false);
-  const [selectedMovieUrl, setSelectedMovieUrl] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
 
-
+  const searchQuery = searchParams.get("query") ?? "";
 
   useEffect(() => {
     if (searchQuery.trim() === "") {
@@ -33,12 +31,10 @@ export default function MoviesPage({ onSearch }) {
       try {
         setLoading(true);
         setError(false);
-        //  setSearchParams({ query: searchMovie, page: 1 });
+
         const { results, total_pages } = await searchMovies(searchQuery, page);
         setTotalPage(total_pages);
         setMovies((prevState) => [...prevState, ...results]);
-
-       
       } catch (error) {
         setError(true);
       } finally {
@@ -49,23 +45,19 @@ export default function MoviesPage({ onSearch }) {
     fetchMovies();
   }, [searchQuery, page]);
 
-  const handleSearch = async (searchMovie) => {
-    setSearchQuery(searchMovie);
-    setPage(1);
-    // setMovies([]);
-    setSearchParams({ query: searchMovie, page: 1 });
+  const handleSearch = async (searchQuery, page) => {
+    searchParams.set(searchQuery, page);
+
+    setSearchParams({ query: searchQuery, page: 1 });
   };
 
   const hendleLoadMore = async () => {
     setPage(page + 1);
   };
 
-
-
   return (
     <div>
       <SearchBar onSearch={handleSearch} />
-   
 
       {error && <ErrorMessage />}
       {Movies.length > 0 && <MovieGallery items={Movies} />}
