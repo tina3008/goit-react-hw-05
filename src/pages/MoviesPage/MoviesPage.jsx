@@ -20,7 +20,7 @@ export default function MoviesPage() {
   const [totalPage, setTotalPage] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const searchQuery = searchParams.get("query") ?? "";
+  const searchQuery = searchParams.get("movie") ?? "";
 
   useEffect(() => {
     if (searchQuery.trim() === "") {
@@ -45,14 +45,19 @@ export default function MoviesPage() {
     fetchMovies();
   }, [searchQuery, page]);
 
-  const handleSearch = async (searchQuery) => {
-    searchParams.set("query", searchQuery);
-    setSearchParams(searchParams);
-  };
-
   const hendleLoadMore = async () => {
     setPage(page + 1);
   };
+
+  console.log(totalPage);
+  const handleSearch = async (searchQuery) => {
+    searchParams.set("movie", searchQuery);
+
+
+    setSearchParams(searchParams);
+  };
+
+
 
   return (
     <div>
