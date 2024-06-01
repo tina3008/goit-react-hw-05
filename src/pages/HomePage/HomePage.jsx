@@ -1,5 +1,3 @@
-
-
 import { useEffect, useState } from "react";
 
 import { getMovies } from "../../components/movie-api";
@@ -14,9 +12,7 @@ export default function HomePage() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
-
   const [totalPage, setTotalPage] = useState(false);
-  // const [selectedMovieUrl, setSelectedMovieUrl] = useState("");
 
   useEffect(() => {
     async function fetchMovies() {
@@ -42,12 +38,11 @@ export default function HomePage() {
   return (
     <div>
       <h2>Trending movies </h2>
+      {loading && <Loader />}
       {error && <ErrorMessage />}
       {Movies.length > 0 && <MovieGallery items={Movies} />}
 
       {totalPage > page && <LoadMoreBtn onClick={hendleLoadMore} />}
-
-      {loading && <Loader />}
     </div>
   );
 }
