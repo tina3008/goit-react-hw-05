@@ -49,7 +49,7 @@ export default function MoviesPage() {
     setPage(page + 1);
   };
 
-  console.log(totalPage);
+
   const handleSearch = async (searchQuery) => {
     searchParams.set("movie", searchQuery);
 
